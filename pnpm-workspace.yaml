@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - shared/*
+
+ignoredBuiltDependencies:
+  - core-js
+  - cypress
+  - esbuild

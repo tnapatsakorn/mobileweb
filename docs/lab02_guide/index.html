@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKU Campus Guide - lab02</title>
+
+    <!-- ฟอนต์: Bitcount สำหรับหัวข้อหลัก, Sarabun สำหรับเนื้อหา -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-page: #f7f2ec;
+            --bg-hero: #f4eee7;
+            --bg-card: #ffffff;
+            --accent: #d63447;
+            --accent-soft: #fbe1e4;
+            --text-main: #171717;
+            --text-muted: #6b7280;
+            --border-soft: #e5e5e5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Sarabun", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* ====== GLOBAL BUTTON STYLE ====== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.5rem;
+            border-radius: 999px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 18px rgba(214,52,71,0.35);
+            transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(214,52,71,0.45);
+            background: #c1293a;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 1.4rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: #fff;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.12s, transform 0.1s, box-shadow 0.12s;
+        }
+
+        .btn-outline:hover {
+            background: #fdfaf7;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        /* ====== HEADER / NAVBAR ====== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(247,242,236,0.9);
+            border-bottom: 1px solid rgba(229,229,229,0.8);
+        }
+
+        .nav-container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(214,52,71,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .brand-text-main {
+            font-family: "Bitcount Prop Single", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            letter-spacing: 0.14em;
+        }
+
+        .brand-text-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            color: var(--text-main);
+            transition: background 0.12s, border-color 0.12s, transform 0.1s;
+        }
+
+        nav a:hover {
+            background: #fff;
+            border-color: var(--border-soft);
+            transform: translateY(-1px);
+        }
+
+        /* ====== HERO SECTION ====== */
+        #hero {
+            background: var(--bg-hero);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .hero-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2.6rem 1.2rem 3.2rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: #fff;
+            border: 1px solid var(--border-soft);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 0.9rem;
+        }
+
+        /* ===== หัวข้อแบบ typing effect ===== */
+        .hero-title {
+            font-family: "Bitcount Prop Single", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: clamp(2.4rem, 4vw, 3rem);
+            font-style: italic;
+            letter-spacing: 0.16em;
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+
+            display: inline-block;        /* ให้กว้างเท่าข้อความ */
+            white-space: nowrap;          /* ไม่ตัดบรรทัด */
+            overflow: hidden;             /* ซ่อนตัวอักษรที่ยังไม่ถูก "พิมพ์" */
+            border-right: 3px solid #171717; /* เคอร์เซอร์ */
+            animation:
+                typing 3.5s steps(50, end) infinite,
+                caret 10s step-end infinite;
+        }
+
+        /* พิมพ์ทีละตัว */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* เคอร์เซอร์กระพริบ */
+        @keyframes caret {
+            0%, 50% { border-color: #171717; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-main);
+            max-width: 32rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .hero-student {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.4rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+
+        .hero-meta span::before {
+            content: "• ";
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-card {
+            background: #fff;
+            border-radius: 1.6rem;
+            padding: 0.8rem;
+            box-shadow: 0 14px 35px rgba(0,0,0,0.22);
+            overflow: hidden;
+        }
+
+        .hero-image {
+            border-radius: 1.2rem;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            display: block;
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transform: scale(1.02);
+        }
+
+        .hero-badge {
+            position: absolute;
+            bottom: -12px;
+            right: 8px;
+            background: #111827;
+            color: #f9fafb;
+            border-radius: 999px;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        /* ====== MAIN CONTENT CONTAINER ====== */
+        main {
+            max-width: 1120px;
+            margin: 0 auto 2.8rem;
+            padding: 0 1.2rem;
+        }
+
+        section {
+            margin-top: 2.6rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title-bar {
+            width: 64px;
+            height: 3px;
+            border-radius: 999px;
+            background: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* INTRO */
+        #intro .intro-card {
+            background: #ffffff;
+            border-radius: 1.4rem;
+            padding: 1.4rem 1.6rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-soft);
+        }
+
+        #intro p {
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        /* PLACES GRID */
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.6rem;
+        }
+
+        .place-card {
+            background: var(--bg-card);
+            border-radius: 1.4rem;
+            overflow: hidden;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.09);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .place-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .place-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+            transition: transform 0.5s ease-out;
+        }
+
+        .place-card:hover .place-image img {
+            transform: scale(1.06);
+        }
+
+        .place-body {
+            padding: 1rem 1.1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .place-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .place-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .place-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 999px;
+            background: #f9fafb;
+            border: 1px solid var(--border-soft);
+            color: var(--text-muted);
+        }
+
+        .place-desc {
+            font-size: 0.95rem;
+            color: #4b5563;
+        }
+
+        .place-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.4rem;
+            margin-top: 0.4rem;
+        }
+
+        figure {
+            margin: 0;
+        }
+
+        figure img {
+            width: 100%;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 0.6rem;
+        }
+
+        figcaption {
+            margin-top: 0.15rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* CONTACT SECTION */
+        #contact .contact-card {
+            background: #111827;
+            color: #f9fafb;
+            border-radius: 1.4rem;
+            padding: 1.5rem 1.6rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 1.6rem;
+        }
+
+        #contact h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        #contact p {
+            font-size: 0.95rem;
+        }
+
+        #contact .contact-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #9ca3af;
+            margin-bottom: 0.2rem;
+        }
+
+        #contact a {
+            color: #f9fafb;
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            max-width: 1120px;
+            margin: 0 auto 1.8rem;
+            padding: 0 1.2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+                padding-bottom: 2.2rem;
+            }
+            .hero-visual {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+            #contact .contact-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-image img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <div class="brand">
+                <div class="brand-mark">KKU</div>
+                <div class="brand-text">
+                    <span class="brand-text-main">Campus Guide</span>
+                    <span class="brand-text-sub">Khon Kaen University</span>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">หน้าแรก</a></li>
+                    <li><a href="#places">สถานที่แนะนำ</a></li>
+                    <li><a href="#contact">ติดต่อผู้จัดทำ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <div class="hero-tag">
+                    <span>KKU CAMPUS GUIDE</span>
+                </div>
+                <h1 class="hero-title">KKU Campus Guide</h1>
+                <p class="hero-subtitle">
+                </p>
+                <p class="hero-student">
+                    รหัสนักศึกษา: <strong>66xxxxxxxx</strong> |
+                    ชื่อ–สกุล: <strong>พิมพ์ชื่อ–สกุลของคุณที่นี่</strong>
+                </p>
+                <div class="hero-actions">
+                    <a href="#places" class="btn-primary">ดูสถานที่แนะนำ</a>
+                    <a href="#intro" class="btn-outline">เกี่ยวกับเว็บไซต์</a>
+                </div>
+                <div class="hero-meta">
+                    <span>Khon Kaen University</span>
+                    <span>College of Computing</span>
+                    <span>Mobile &amp; Web Application Development</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-image">
+                        <!-- เปลี่ยนเป็นรูปบรรยากาศ มข. ของจริง -->
+                        <img src="images/kkucampus-hero.jpg" alt="บรรยากาศมหาวิทยาลัยขอนแก่น">
+                    </div>
+                </div>
+                <div class="hero-badge">INSIDE KKU CAMPUS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- INTRO -->
+        <section id="intro">
+            <div class="section-title">เกี่ยวกับเว็บไซต์</div>
+            <div class="section-title-bar"></div>
+            <div class="intro-card">
+                <p>
+                    เว็บเพจนี้จัดทำขึ้นเพื่อเป็นส่วนหนึ่งของรายวิชา Mobile &amp; Web Application Development
+                </p>
+            </div>
+        </section>
+
+        <!-- PLACES -->
+        <section id="places">
+            <div class="section-title">สถานที่แนะนำภายในมหาวิทยาลัยขอนแก่น</div>
+            <div class="section-title-bar"></div>
+
+            <div class="places-grid">
+
+                <!-- โรงชาย -->
+                <article class="place-card">
+                    <div class="place-image">
+                        <img src="images/boystown-main.jpg" alt="โรงชาย มหาวิทยาลัยขอนแก่น">
+                    </div>
+                    <div class="place-body">
+                        <div class="place-header">
+                            <h3 class="place-name">โรงชาย</h3>
+                            <span class="place-tag">จุดนัดพบ &amp; พักผ่อน</span>
+                        </div>
+                        <p class="place-desc">
+                            โรงชายเป็นหนึ่งในจุดนัดพบยอดนิยมของนักศึกษา
+                        </p>
+                        <div class="place-gallery">
+                            <figure>
+                                <img src="images/boystown-1.jpg" alt="บรรยากาศบริเวณโรงชาย มข.">
+                                <figcaption>มุมด้านหน้าบริเวณโรงชายในช่วงกลางวัน</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/boystown-2.jpg" alt="นักศึกษานั่งพักบริเวณโรงชาย">
+                                <figcaption>พื้นที่นั่งเล่นและพักผ่อนของนักศึกษาบริเวณโรงชาย</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- คอมเพล็กซ์ -->
+                <article class="place-card">
+                    <div class="place-image">
+                        <img src="images/complex-main.jpg" alt="คอมเพล็กซ์ มหาวิทยาลัยขอนแก่น">
+                    </div>
+                    <div class="place-body">
+                        <div class="place-header">
+                            <h3 class="place-name">คอมเพล็กซ์ (Complex)</h3>
+                            <span class="place-tag">ร้านอาหาร &amp; ร้านค้า</span>
+                        </div>
+                        <p class="place-desc">
+                            คอมเพล็กซ์เป็นศูนย์รวมร้านอาหาร ร้านสะดวกซื้อ ร้านกาแฟ
+                            และบริการต่าง ๆ ที่ตอบโจทย์การใช้ชีวิตของนักศึกษาและบุคลากรภายในมหาวิทยาลัย
+                        </p>
+                        <div class="place-gallery">
+                            <figure>
+                                <img src="images/complex-1.jpg" alt="ด้านหน้าคอมเพล็กซ์ มข.">
+                                <figcaption>บรรยากาศด้านหน้าคอมเพล็กซ์ในช่วงเวลาพักกลางวัน</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/complex-2.jpg" alt="ร้านอาหารภายในคอมเพล็กซ์ มข.">
+                                <figcaption>ร้านอาหารและร้านค้าหลากหลายให้เลือกภายในคอมเพล็กซ์</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- วิทยาลัยการคอมพิวเตอร์ -->
+                <article class="place-card">
+                    <div class="place-image">
+                        <img src="images/college-main.jpg" alt="วิทยาลัยการคอมพิวเตอร์ มข.">
+                    </div>
+                    <div class="place-body">
+                        <div class="place-header">
+                            <h3 class="place-name">วิทยาลัยการคอมพิวเตอร์</h3>
+                            <span class="place-tag">เทคโนโลยี &amp; นวัตกรรม</span>
+                        </div>
+                        <p class="place-desc">
+                            วิทยาลัยการคอมพิวเตอร์เป็นศูนย์กลางการเรียนการสอนและงานวิจัยด้านเทคโนโลยีดิจิทัล
+                            ปัญญาประดิษฐ์ และนวัตกรรมสมัยใหม่ของมหาวิทยาลัยขอนแก่น
+                        </p>
+                        <div class="place-gallery">
+                            <figure>
+                                <img src="images/college-1.jpg" alt="อาคารหลักของวิทยาลัยการคอมพิวเตอร์">
+                                <figcaption>อาคารเรียนหลักของวิทยาลัยการคอมพิวเตอร์</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/college-2.jpg" alt="พื้นที่ภายในวิทยาลัยการคอมพิวเตอร์">
+                                <figcaption>พื้นที่ทำงานกลุ่มและอ่านหนังสือภายในวิทยาลัย</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- หอกาญจนาภิเษก -->
+                <article class="place-card">
+                    <div class="place-image">
+                        <img src="images/kan-main.jpg" alt="หอกาญจนาภิเษก มข.">
+                    </div>
+                    <div class="place-body">
+                        <div class="place-header">
+                            <h3 class="place-name">หอกาญจนาภิเษก</h3>
+                            <span class="place-tag">หอประชุมใหญ่</span>
+                        </div>
+                        <p class="place-desc">
+                            หอกาญจนาภิเษกเป็นหอประชุมขนาดใหญ่ของมหาวิทยาลัยขอนแก่น
+                            ใช้จัดพิธีพระราชทานปริญญาบัตร งานประชุมวิชาการ และกิจกรรมสำคัญระดับมหาวิทยาลัย
+                        </p>
+                        <div class="place-gallery">
+                            <figure>
+                                <img src="images/kan-1.jpg" alt="ด้านหน้าหอกาญจนาภิเษก มข.">
+                                <figcaption>มุมมองด้านหน้าหอกาญจนาภิเษกในช่วงเวลากลางวัน</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="images/kan-2.jpg" alt="ภายในหอกาญจนาภิเษก มข.">
+                                <figcaption>บรรยากาศภายในหอกาญจนาภิเษกระหว่างจัดงานพิธี</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="section-title">ติดต่อผู้จัดทำ</div>
+            <div class="section-title-bar"></div>
+
+            <div class="contact-card">
+                <div>
+                    <div class="contact-label">ผู้จัดทำ</div>
+                    <p>พิมพ์ชื่อ–สกุลของคุณ (และรายชื่อสมาชิกกลุ่มถ้ามี)</p>
+
+                    <div style="margin-top:0.8rem;">
+                        <div class="contact-label">สาขา / ชั้นปี</div>
+                        <p>วิทยาลัยการคอมพิวเตอร์ มหาวิทยาลัยขอนแก่น</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="contact-label">อีเมลติดต่อ</div>
+                    <p><a href="mailto:your.email@example.com">your.email@example.com</a></p>
+
+                    <div style="margin-top:0.8rem;">
+                        <div class="contact-label">รายวิชา</div>
+                        <p>3203xxxx Mobile &amp; Web Application Development</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 KKU Campus Guide — จัดทำเพื่อการศึกษาในรายวิชา Mobile &amp; Web Application Development
+    </footer>
+
+</body>
+</html>

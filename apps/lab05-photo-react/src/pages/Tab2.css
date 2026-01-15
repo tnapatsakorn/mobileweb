@@ -1,0 +1,21 @@
+.gallery-header {
+  text-align: center;
+  margin: 16px 0 8px;
+}
+
+.photo-img {
+  border-radius: 12px;
+  object-fit: cover;
+  height: 160px;
+  width: 100%;
+}
+
+.camera-fab {
+  width: 72px;
+  height: 72px;
+  --background: var(--ion-color-primary);
+}
+
+.camera-fab ion-icon {
+  font-size: 32px;
+}

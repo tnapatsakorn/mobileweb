@@ -1,0 +1,13 @@
+.home-box {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.home-box h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.home-box h3 {
+  margin-top: 20px;
+}

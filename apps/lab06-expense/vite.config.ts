@@ -7,15 +7,19 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/mobileweb/lab06-expense/', // 🔥 เพิ่มบรรทัดนี้
+
   plugins: [
     vue(),
     legacy()
   ],
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
+
   test: {
     globals: true,
     environment: 'jsdom'

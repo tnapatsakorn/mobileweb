@@ -2,26 +2,38 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>แก้ไขรายการ</ion-title>
+        <ion-title>✏️ แก้ไขรายการ</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content class="ion-padding">
 
-      <ion-input label="ชื่อรายการ" v-model="title"></ion-input>
+      <!-- 💳 Card ครอบฟอร์ม -->
+      <ion-card>
+        <ion-card-content>
 
-      <ion-input label="จำนวนเงิน" type="number" v-model="amount"></ion-input>
+          <ion-input 
+            label="ชื่อรายการ" 
+            v-model="title"
+            placeholder="เช่น ค่าข้าว"
+          ></ion-input>
 
-      <ion-select label="ประเภท" v-model="type">
-        <ion-select-option value="income">รายรับ</ion-select-option>
-        <ion-select-option value="expense">รายจ่าย</ion-select-option>
-      </ion-select>
+          <ion-input 
+            label="จำนวนเงิน" 
+            type="number" 
+            v-model="amount"
+            placeholder="0"
+          ></ion-input>
 
+        </ion-card-content>
+      </ion-card>
+
+      <!-- ✅ ปุ่ม -->
       <ion-button expand="block" @click="updateExpense">
-        อัปเดต
+        บันทึกการแก้ไข
       </ion-button>
 
-      <ion-button color="danger" expand="block" @click="deleteExpense">
+      <ion-button expand="block" color="danger" @click="confirmDelete">
         ลบข้อมูล
       </ion-button>
 
@@ -30,6 +42,13 @@
 </template>
 
 <script setup lang="ts">
+import {
+  IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
+  IonInput, IonButton,
+  IonCard, IonCardContent,
+  alertController
+} from '@ionic/vue';
+
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
@@ -42,36 +61,60 @@ const id = route.params.id as string;
 
 const title = ref("");
 const amount = ref(0);
-const type = ref("expense");
 
+// 🔄 โหลดข้อมูล
 onMounted(async () => {
   const docRef = doc(db, "expenses", id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    const data = docSnap.data();
+    const data: any = docSnap.data();
     title.value = data.title;
     amount.value = data.amount;
-    type.value = data.type;
   }
 });
 
+// ✅ UPDATE
 const updateExpense = async () => {
-  const docRef = doc(db, "expenses", id);
+  if (!title.value || amount.value <= 0) {
+    const alert = await alertController.create({
+      header: "ข้อมูลไม่ครบ",
+      message: "กรุณากรอกข้อมูลให้ถูกต้อง",
+      buttons: ["ตกลง"]
+    });
+    await alert.present();
+    return;
+  }
 
-  await updateDoc(docRef, {
+  await updateDoc(doc(db, "expenses", id), {
     title: title.value,
-    amount: amount.value,
-    type: type.value
+    amount: Number(amount.value)
   });
 
-  router.push("/list");
+  router.push("/tabs/tab1");
 };
 
-const deleteExpense = async () => {
-  if (confirm("ต้องการลบใช่ไหม?")) {
-    await deleteDoc(doc(db, "expenses", id));
-    router.push("/list");
-  }
+// ✅ DELETE + confirm
+const confirmDelete = async () => {
+  const alert = await alertController.create({
+    header: 'ยืนยันการลบ',
+    message: 'คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?',
+    buttons: [
+      {
+        text: 'ยกเลิก',
+        role: 'cancel'
+      },
+      {
+        text: 'ลบ',
+        role: 'destructive',
+        handler: async () => {
+          await deleteDoc(doc(db, "expenses", id));
+          router.push("/tabs/tab1");
+        }
+      }
+    ]
+  });
+
+  await alert.present();
 };
 </script>

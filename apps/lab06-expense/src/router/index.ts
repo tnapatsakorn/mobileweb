@@ -1,15 +1,11 @@
-import { createRouter, createWebHashHistory } from '@ionic/vue-router';  // เปลี่ยนตรงนี้
+import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/add'
-  },
-  {
-    path: '/add',
-    component: () => import('@/views/AddExpense.vue')
+    redirect: '/tabs/tab1'
   },
   {
     path: '/tabs/',
@@ -34,17 +30,13 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: "/list",
-    component: () => import("@/views/ListPage.vue")
-  },
-  {
-    path: "/edit/:id",
-    component: () => import("@/views/EditExpense.vue")
+    path: '/edit/:id',
+    component: () => import('@/views/EditExpense.vue')
   }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),  // เปลี่ยนตรงนี้
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 

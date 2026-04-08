@@ -7,14 +7,8 @@
     </ion-header>
 
     <ion-content class="ion-padding">
-
       <ion-input label="ชื่อรายการ" v-model="title"></ion-input>
-
-      <ion-input
-        label="จำนวนเงิน"
-        type="number"
-        v-model="amount">
-      </ion-input>
+      <ion-input label="จำนวนเงิน" type="number" v-model="amount"></ion-input>
 
       <ion-select label="ประเภท" v-model="type">
         <ion-select-option value="income">รายรับ</ion-select-option>
@@ -22,13 +16,11 @@
       </ion-select>
 
       <ion-input label="หมวดหมู่" v-model="category"></ion-input>
-
       <ion-textarea label="หมายเหตุ" v-model="note"></ion-textarea>
 
       <ion-button expand="block" @click="saveExpense">
-        บันทึกข้อมูล
+        บันทึก
       </ion-button>
-
     </ion-content>
   </ion-page>
 </template>
@@ -57,6 +49,6 @@ const saveExpense = async () => {
     createdAt: new Date()
   });
 
-  router.push("/list");
+  router.push("/tabs/list");
 };
 </script>

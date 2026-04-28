@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lab09 - Arm Workout Sensor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body { background: #0a0a0a; color: #ffffff; }
+    header { background: linear-gradient(135deg, #1a0a2e, #16213e); border-bottom: 2px solid #FB38FF; }
+    .title-glow { color: #FB38FF; text-shadow: 0 0 10px #FB38FF, 0 0 30px #FB38FF; }
+    .card { background: #111; border: 1px solid rgba(251,56,255,0.3); border-radius: 16px; }
+    .card-header { background: rgba(251,56,255,0.1); color: #FB38FF; font-weight: 700; border-bottom: 1px solid rgba(251,56,255,0.3); }
+    .screen-img { width: 100%; border-radius: 12px; border: 2px solid rgba(251,56,255,0.4); }
+    .badge-purple { background: rgba(251,56,255,0.2); color: #FB38FF; border: 1px solid #FB38FF; padding: 4px 12px; border-radius: 20px; font-size: 13px; }
+    .qa-box { background: rgba(251,56,255,0.05); border: 1px solid rgba(251,56,255,0.2); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .qa-q { color: #FB38FF; font-weight: 700; margin-bottom: 8px; }
+    .qa-a { color: rgba(255,255,255,0.8); }
+    footer { border-top: 1px solid rgba(251,56,255,0.2); color: rgba(255,255,255,0.4); }
+    video { width: 100%; border-radius: 12px; border: 2px solid rgba(251,56,255,0.4); }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="text-center py-5">
+  <h1 class="title-glow fw-bold">💪 Lab09: Arm Workout Sensor</h1>
+  <p class="text-white-50 mb-1">Mobile Web Application Development</p>
+  <span class="badge-purple">663380602-5 นภัสกร ชัยเกตุ</span>
+</header>
+
+<main class="container py-4">
+
+  <!-- About -->
+  <div class="card mb-4">
+    <div class="card-header">📱 เกี่ยวกับแอปพลิเคชัน</div>
+    <div class="card-body">
+      <p>แอปกายบริหารแขนที่ใช้ Accelerometer sensor บนมือถือ Android ตรวจจับการยกแขนขึ้น-ลง นับรอบอัตโนมัติ พร้อมเสียงพูด (TTS) และการสั่น (Haptics) เมื่อทำได้ถูกต้อง</p>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="badge-purple">Ionic Vue</span>
+        <span class="badge-purple">Capacitor Motion</span>
+        <span class="badge-purple">Text-to-Speech</span>
+        <span class="badge-purple">Haptics</span>
+        <span class="badge-purple">TypeScript</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screenshots -->
+  <div class="card mb-4">
+    <div class="card-header">📸 ตัวอย่างหน้าจอบน Android</div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <p class="text-center" style="color:#FB38FF;">หน้าเริ่มต้น</p>
+          <!-- วางภาพตรงนี้ -->
+          <img src="./screenshots/lab09-start.png" class="screen-img" alt="หน้าเริ่ม" onerror="this.style.display='none'" />
+          <div class="text-center text-white-50 mt-2" style="font-size:12px;">[ วางภาพหน้าเริ่ม ]</div>
+        </div>
+        <div class="col-md-4">
+          <p class="text-center" style="color:#00F5FF;">ขณะกำลังนับ</p>
+          <!-- วางภาพตรงนี้ -->
+          <img src="./screenshots/lab09-running.png" class="screen-img" alt="ขณะนับ" onerror="this.style.display='none'" />
+          <div class="text-center text-white-50 mt-2" style="font-size:12px;">[ วางภาพขณะนับ ]</div>
+        </div>
+        <div class="col-md-4">
+          <p class="text-center" style="color:#39FF14;">หน้าสถิติ</p>
+          <!-- วางภาพตรงนี้ -->
+          <img src="./screenshots/lab09-stats.png" class="screen-img" alt="สถิติ" onerror="this.style.display='none'" />
+          <div class="text-center text-white-50 mt-2" style="font-size:12px;">[ วางภาพหน้าสถิติ ]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video -->
+  <div class="card mb-4">
+    <div class="card-header">🎥 วิดีโอสาธิต</div>
+    <div class="card-body">
+      <!-- วางวิดีโอตรงนี้ -->
+      <video controls>
+        <source src="./screenshots/lab09-demo.mp4" type="video/mp4" />
+      </video>
+      <p class="text-white-50 text-center mt-2" style="font-size:12px;">[ วางไฟล์วิดีโอ lab09-demo.mp4 ใน folder screenshots ]</p>
+    </div>
+  </div>
+
+  <!-- Q&A -->
+  <div class="card mb-4">
+    <div class="card-header">❓ ถาม-ตอบ</div>
+    <div class="card-body">
+      <div class="qa-box">
+        <div class="qa-q">นักศึกษาใช้ AI ช่วยส่วนไหนบ้าง?</div>
+        <div class="qa-a">ใช้ AI ช่วยสร้างโครงสร้างโปรเจกต์ทั้งหมด ได้แก่ Core Module (types.ts, MotionService, TtsService, HapticsService, ArmWorkoutEngine) และ UI ใน HomePage.vue รวมถึงการออกแบบ CSS Dark Theme และช่วยแก้ TypeScript error ต่างๆ</div>
+      </div>
+      <div class="qa-box">
+        <div class="qa-q">ส่วนใดบ้างที่นักศึกษาปรับแก้ไขเอง?</div>
+        <div class="qa-a">ปรับแก้ typo ในโค้ดที่พิมพ์ผิด เช่น MOtionService, WAIT_DWON และปรับค่า threshold ของ sensor ให้เหมาะกับอุปกรณ์จริง รวมถึงทดสอบการทำงานจริงบน Android</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-center py-3">
+  <p>© 2025 Mobile Web Application Development — KKU | 663380602-5 นภัสกร ชัยเกตุ</p>
+</footer>
+
+</body>
+</html>
